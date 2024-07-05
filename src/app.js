@@ -10,23 +10,24 @@ const port = 5000;
 
 // Configure CORS middleware
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: 'https://muvyz-frontend-hqnihf0rx-izerques-projects.vercel.app/',
     methods: 'GET,POST,PUT,DELETE',
     credentials: true,
     allowedHeaders: 'Content-Type,Authorization',
 }));
 
-// Parse JSON bodies
+// Parse JSON bodies 
 app.use(bodyParser.json());
 
 // Database connection
 const pool = new Pool({
-    user: process.env.DB_USER,
-    host: process.env.DB_HOST,
-    database: process.env.DB_NAME,
-    password: process.env.DB_PASSWORD,
-    port: process.env.DB_PORT,
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false,
+        sslMode: 'prefer',
+    },
 });
+
 
 pool.connect((err, client, release) => {
     if (err) {
