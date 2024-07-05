@@ -12,13 +12,14 @@ const sequelize = new Sequelize(process.env.DATABASE_URL, {
       rejectUnauthorized: false
     }
   }
+
 });
 
 
-// sequelize.sync({force: true}).then(()=>{
-//   console.log("Shychroniced")
-// }).catch(()=>{
-//   console.log("S")
-// })
+sequelize.sync({force: true}).then(()=>{
+  console.log("Shychroniced")
+}).catch(()=>{
+  console.log("S")
+})
 
 module.exports = sequelize;

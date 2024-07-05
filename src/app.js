@@ -9,13 +9,25 @@ const app = express();
 const port = 5000;
 
 // Configure CORS middleware
+const allowedOrigins = [
+    'http://localhost:3000',
+    'https://muvyz-frontend-hqnihf0rx-izerques-projects.vercel.app',
+];
+
 app.use(cors({
-    origin: 'https://muvyz-frontend-hqnihf0rx-izerques-projects.vercel.app/',
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     methods: 'GET,POST,PUT,DELETE',
     credentials: true,
     allowedHeaders: 'Content-Type,Authorization',
 }));
 
+ 
 // Parse JSON bodies 
 app.use(bodyParser.json());
 
